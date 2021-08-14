@@ -1,3 +1,11 @@
+## Manual deployment
+S3 - http://my-rs-s3-bucket.s3-website-eu-west-1.amazonaws.com/
+CloudFront - https://d2b9nzsyazzucd.cloudfront.net/
+
+## Automated deployment
+S3 - http://my-second-rs-s3-bucket.s3-website-eu-west-1.amazonaws.com/
+CloudFront - https://d38kvhmy9feixw.cloudfront.net/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
