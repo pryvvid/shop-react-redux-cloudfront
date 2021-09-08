@@ -57,7 +57,10 @@ export default function Products() {
               <Typography>{formatAsPrice(product.price)}</Typography>
             </CardContent>
             <CardActions>
-              <AddProductToCart product={product} />
+              {product.count > 0 ?
+                <AddProductToCart product={product} />
+                : 'Out of stock'
+              }
             </CardActions>
           </Card>
         </Grid>
