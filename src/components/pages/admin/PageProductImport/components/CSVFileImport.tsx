@@ -43,7 +43,10 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
       const result = await fetch(response.data, {
         method: 'PUT',
         body: file,
-        headers: { 'Content-Type': 'text/csv' }
+        headers: { 
+          'Content-Type': 'text/csv', 
+          'Authorization': `Basic ${localStorage.getItem('authorization_token')}`
+        }
       })
       console.log('Result: ', result)
       setFile('');

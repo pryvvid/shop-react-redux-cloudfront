@@ -13,7 +13,12 @@ import PageOrders from "components/pages/PageOrders/PageOrders";
 import PageOrder from "components/pages/PageOrder/PageOrder";
 import PageProductImport from "components/pages/admin/PageProductImport/PageProductImport";
 
+const saveToLocalStorage = () => {
+  localStorage.setItem('authorization_token', 'cHJ5dnZpZDpURVNUX1BBU1NXT1JE')
+}
+
 function App() {
+  React.useEffect(saveToLocalStorage, [])
 
   return (
     <Router>
