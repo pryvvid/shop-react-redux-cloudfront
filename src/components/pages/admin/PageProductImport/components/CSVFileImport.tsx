@@ -17,8 +17,7 @@ type CSVFileImportProps = {
 export default function CSVFileImport({ url, title }: CSVFileImportProps) {
   const classes = useStyles();
   const [file, setFile] = useState<any>();
-
-  const token = localStorage.getItem("authorization_token");
+  const [authHeader, setAuthHeader] = useState<boolean>(true);
 
   const onFileChange = (e: any) => {
     console.log(e);
@@ -32,6 +31,7 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
   };
 
   const uploadFile = async (e: any) => {
+    const token = localStorage.getItem("authorization_token");
     // Get the presigned URL
     const response = await axios({
       method: "GET",
@@ -39,9 +39,11 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
       params: {
         name: encodeURIComponent(file.name),
       },
-      headers: {
-        Authorization: `Basic ${token}`,
-      },
+      headers: authHeader
+        ? {
+            Authorization: `Basic ${token}`,
+          }
+        : {},
     });
     console.log("File to upload: ", file.name);
     console.log("Uploading to: ", response.data);
@@ -67,6 +69,14 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
         <div>
           <button onClick={removeFile}>Remove file</button>
           <button onClick={uploadFile}>Upload file</button>
+          <input
+            type="checkbox"
+            name="authorizationCheck"
+            id="authorizationCheck"
+            checked={authHeader}
+            onChange={() => setAuthHeader(!authHeader)}
+          />
+          <label htmlFor="authorizationCheck">Authorization header</label>
         </div>
       )}
     </div>
