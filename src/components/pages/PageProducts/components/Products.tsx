@@ -11,7 +11,6 @@ import { formatAsPrice } from "utils/utils";
 import AddProductToCart from "components/AddProductToCart/AddProductToCart";
 import axios from "axios";
 import API_PATHS from "constants/apiPaths";
-// import productList from "./productList.json";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -36,8 +35,24 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    axios.get(`${API_PATHS.bff}/products`).then((res) => setProducts(res.data));
-    // setProducts(productList);
+    const queryString = window.location.hash.substr(1);
+    const urlParams = new URLSearchParams(queryString);
+    const idToken = urlParams.get("id_token");
+    console.log("id_token", idToken);
+
+    const requestUrl = idToken
+      ? `${API_PATHS.productAuth}/products/auth`
+      : `${API_PATHS.bff}/products`;
+
+    const requestConfig = idToken
+      ? {
+          headers: {
+            Authorization: idToken,
+          },
+        }
+      : {};
+
+    axios.get(requestUrl, requestConfig).then((res) => setProducts(res.data));
   }, []);
 
   return (
@@ -57,10 +72,11 @@ export default function Products() {
               <Typography>{formatAsPrice(product.price)}</Typography>
             </CardContent>
             <CardActions>
-              {product.count > 0 ?
+              {product.count > 0 ? (
                 <AddProductToCart product={product} />
-                : 'Out of stock'
-              }
+              ) : (
+                "Out of stock"
+              )}
             </CardActions>
           </Card>
         </Grid>
