@@ -2,14 +2,12 @@
 
 CloudFront - https://d38kvhmy9feixw.cloudfront.net/
 
-S3 (should response with 403 error) - http://my-second-rs-s3-bucket.s3-website-eu-west-1.amazonaws.com/
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:  
-You can use NPM instead of YARN (Up to you)  
+You can use NPM instead of YARN (Up to you)
 
 ### `yarn start` OR `npm run start`
 
