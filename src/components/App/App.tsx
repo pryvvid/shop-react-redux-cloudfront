@@ -1,19 +1,24 @@
-import React from 'react';
-import 'components/App/App.css';
+import React from "react";
+import "components/App/App.css";
 import PageProducts from "components/pages/PageProducts/PageProducts";
 import MainLayout from "components/MainLayout/MainLayout";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PageProductForm from "components/pages/PageProductForm/PageProductForm";
 import PageCart from "components/pages/PageCart/PageCart";
 import PageOrders from "components/pages/PageOrders/PageOrders";
 import PageOrder from "components/pages/PageOrder/PageOrder";
 import PageProductImport from "components/pages/admin/PageProductImport/PageProductImport";
 
+const saveToLocalStorage = () => {
+  const { REACT_APP_USERNAME, REACT_APP_PASSWORD } = process.env;
+  const authorizationToken = btoa(
+    `${REACT_APP_USERNAME}:${REACT_APP_PASSWORD}`
+  );
+  localStorage.setItem("authorization_token", authorizationToken);
+};
+
 function App() {
+  React.useEffect(saveToLocalStorage, []);
 
   return (
     <Router>
@@ -21,10 +26,13 @@ function App() {
         <Route path="/">
           <MainLayout>
             <Route exact path="/">
-              <PageProducts/>
+              <PageProducts />
             </Route>
-            <Route exact path={["/admin/product-form/:id", '/admin/product-form']}>
-              <PageProductForm/>
+            <Route
+              exact
+              path={["/admin/product-form/:id", "/admin/product-form"]}
+            >
+              <PageProductForm />
             </Route>
             <Route exact path="/cart">
               <PageCart />
